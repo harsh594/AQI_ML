@@ -1,24 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct  1 12:40:59 2018
-
-@author: Darpan
-"""
-
-# Artificial Neural Network
-
-# Installing Theano
-# pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
-
-# Installing Tensorflow
-# pip install tensorflow
-
-# Installing Keras
-# pip install --upgrade keras
-
-# Part 1 - Data Preprocessing
-
-# Importing the libraries
+]
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -30,7 +10,7 @@ dataset1 = pd.read_csv('testdata.csv')
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
 
 X_test=dataset1.iloc[:,:].values
 
@@ -46,20 +26,20 @@ classifier = Sequential()
 
 # Adding the input layer and the first hidden layer
 classifier.add(Dense(units = 8, kernel_initializer = 'uniform', activation = 'relu', input_dim = 5))
-classifier.add(Dropout(0.25))
+classifier.add(Dropout(0.10))
 # Adding the second hidden layer
 classifier.add(Dense(units = 41, kernel_initializer = 'uniform', activation = 'relu'))
-classifier.add(Dropout(0.25))
+classifier.add(Dropout(0.10))
 classifier.add(Dense(units = 24, kernel_initializer = 'uniform', activation = 'softplus'))
 # Adding the output layer
-classifier.add(Dropout(0.25))
+classifier.add(Dropout(0.10))
 classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'relu'))
 
 # Compiling the ANN
 classifier.compile(loss='mean_squared_error', optimizer='adadelta')
 
 # Fitting the ANN to the Training set
-classifier.fit(X_train, y_train, batch_size =10, epochs =800,shuffle=False)
+classifier.fit(X_train, y_train, batch_size = 15, epochs = 1000, shuffle=False)
 
 # Part 3 - Making predictions and evaluating the model
 
@@ -70,7 +50,7 @@ y_pred = classifier.predict(np.array([[6,22,120,25,10]]))
 #Rando forest
 
 from sklearn.ensemble import RandomForestRegressor
-regressor = RandomForestRegressor(n_estimators =90, random_state = 0)
+regressor = RandomForestRegressor(n_estimators = 100)
 regressor.fit(X_train,y_train)
 
                                                  
